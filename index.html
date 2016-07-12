@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Geospectral by PranaGeo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Geospectral</h1>
+      <h2 class="project-tagline">An R package for working with Spectral data</h2>
+      <a href="https://github.com/PranaGeo/geoSpectral" class="btn">View on GitHub</a>
+      <a href="https://github.com/PranaGeo/geoSpectral/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/PranaGeo/geoSpectral/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="spectral" class="anchor" href="#spectral" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Spectral</h1>
+
+<p>Spectral is an R package providing a new data type for R that stores spectral, temporal and spatial attributes of measurement data as well as methods for accessing and manipulating the spectral (and non-spectral) data. Once spectral data is imported into Spectral, the statistical and data processing power of R is available for various kinds of scientific analyses.</p>
+
+<p>It provides the S4 classes: <strong><em>Spectra</em></strong> (stores spatial/temporal/spectral aspects of data), <strong><em>SpcHeader</em></strong> (stores metadata in an R list object) and <strong><em>SpcList</em></strong> (makes a collection of Spectra objects in an R list) as well as basic data access and manipulation methods for importing, acessing and subsetting, converting into R objects, analyzing, plotting and exporting scientific data.</p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+
+<p>The package is issued with a <a href="http://www.gnu.org/copyleft/gpl.html">GPLv3</a> license. Please consult the license documentation if you would like to use <strong>Spectral</strong> in your software projects.</p>
+
+<h2>
+<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Requirements</h2>
+
+<p><strong>Spectral</strong> depends on the R packages <em>rgdal</em>, <em>spacetime</em> and <em>xlsx</em>. You need to install them before you can install <strong>Spectral</strong>. If you don't have them already, try :</p>
+
+<pre><code>install.packages(c("rgdal","spacetime","xlsx"),dep=T)
+</code></pre>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>First install the <em>devtools</em> package using <em>install.packages()</em> and then :</p>
+
+<pre><code>require(devtools)
+install_github("PranaGeo/Spectral")
+</code></pre>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>The R code documentation is very incomplete. Sorry. After installing the package, you can try from the R prompt : <code>?Spectral</code> to consult the brief documentation of the package or <code>?Spectra</code> to  see the help of the constructor function the main class : <em>Spectra()</em>.</p>
+
+<p>You can view the documentation <a href="https://github.com/PranaGeo/Spectral/wiki">wiki</a> to learn how to use the package. </p>
+
+<h2>
+<a id="contributions" class="anchor" href="#contributions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributions</h2>
+
+<p>Your comments,suggestions and contributions are very welcome. Please feel free to open issues <a href="https://github.com/PranaGeo/Spectral/issues">here</a>.</p>
+
+<h3>
+<a id="help-the-development" class="anchor" href="#help-the-development" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Help the development</h3>
+
+<p>If you would like to contribute to the development, get a GitHub account, fork the <em>dev</em> branch of this project to your GitHub account, clone it to your local machine, work on it, commit your changes, push your changes to your GitHub fork and send us a pull request and we will discuss. For more information, visit the <a href="https://help.github.com/articles/using-pull-requests/#fork--pull">fork &amp; pull development model page.</a></p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/PranaGeo/geoSpectral">Geospectral</a> is maintained by <a href="https://github.com/PranaGeo">PranaGeo</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
