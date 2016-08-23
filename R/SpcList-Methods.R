@@ -272,6 +272,27 @@ setMethod("$", signature = "SpcList",
 #########################################################################
 # Method : show
 #########################################################################
+#' Show a Spclist object
+#'
+#' @description
+#' Display a \code{Spclist} object 
+#'
+#' @usage 
+#' show(x)
+#' # or 
+#' x
+#' @param x a \code{Spclist} object 
+#' @return  show returns an invisible \code{NULL}
+#'
+#' 
+#' 
+#'
+#' @examples
+#' x <- spc.example_spectra()
+#' BL = spc.makeSpcList(x,"STATION")
+#' show(x)
+#' 
+#' 
 setMethod("show", "SpcList", function(object){
 			if(length(object)>0)
 				sapply(1:length(object), function(x) {
