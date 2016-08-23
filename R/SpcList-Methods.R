@@ -337,6 +337,25 @@ setMethod("spc.invalid.detect", signature = "list", def=function(source1){
 #########################################################################
 # Method : spc.getheader
 #########################################################################
+#' Extract a field of the header slot of a \code{Spclist} object
+#' @description
+#' Extracts the value of a field in the header slot of \code{Spclist} object
+#'
+#' @usage 
+#' spc.getheader(object,name)
+#'
+#' @seealso \code{\link{spc.setheader}}
+#' 
+#' @param object  A  \code{Spectra} object 
+#' @param name of the header field to be extracted
+#' 
+#' @examples 
+#' sp=spc.example_spectra()
+#' BL = spc.makeSpcList(sp,"STATION")
+#' spc.getheader(BL)
+#' #or
+#' spc.getheader(BL,"Latitude")
+#' 
 setMethod("spc.getheader", signature = "list", def = function (object,name){
 			sapply(object, spc.getheader,name)
 		})
