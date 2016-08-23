@@ -254,6 +254,7 @@ setMethod("names", "SpcList", function(x){
 #'
 #' @examples
 #'  sp<-spc.example_spectra()
+#'  BL = spc.makeSpcList(sp,"STATION")
 #'  # names() is used to show that a_nap ,  
 #'  names(BL)
 #'  BL$a_nap

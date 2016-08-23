@@ -22,6 +22,7 @@ Operators acting on  \code{Spclist} objects  to extract or replace parts
 }
 \examples{
  sp<-spc.example_spectra()
+ BL = spc.makeSpcList(sp,"STATION")
  # names() is used to show that a_nap ,  
  names(BL)
  BL$a_nap
