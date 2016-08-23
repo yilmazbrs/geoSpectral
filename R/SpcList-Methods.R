@@ -167,6 +167,7 @@ setMethod("spc.plot.depth.overlay", "SpcList", function (object, X, lab_cex, ...
 #########################################################################
 # Method : subset
 #########################################################################
+#desciption was created in Spectra method and mentioned in there
 #The argument "select" is not implemented yet. Use "[]"
 setMethod("subset",  signature="SpcList",
 		definition=function(x, subset, select, drop = FALSE, ...) {                   
@@ -210,6 +211,21 @@ setMethod("subset",  signature="SpcList",
 #########################################################################
 # Method : names
 #########################################################################
+#' The Names of a \code{Spclist} object
+#'
+#' @description
+#'  Retrieve  the names of \code{Spclist} object 
+#'  
+#' @usage 
+#' names(x)
+#'
+#' @param  x  a \code{Spclist} object
+#' @examples
+#' 
+#' sp <- spc.example_spectra() 
+#' BL = spc.makeSpcList(sp,"STATION")
+#' names(BL)
+#' 
 setMethod("names", "SpcList", function(x){
 			sapply(x, function(mobject) {
 						if(class(mobject)=="Spectra") mobject@ShortName[1]	else class(mobject) 
@@ -219,6 +235,31 @@ setMethod("names", "SpcList", function(x){
 #########################################################################
 # Method : $
 #########################################################################
+#' Extract or replace parts of a Spclist object
+#'
+#' @description
+#' Operators acting on  \code{Spclist} objects  to extract or replace parts
+#' 
+#' @usage 
+#' x[i] 
+#' x[i, j] 
+#' x[[i]] 
+#' x$i #More usage cases to be added
+#' 
+#' 
+#' @param \code{Spclist} object from which to extract element(s) or in which to replace element(s)
+#' @param i A numeric (row index) variable
+#' @param j A character (column name) or a numeric (column index) variable
+#' 
+#'
+#' @examples
+#'  sp<-spc.example_spectra()
+#'  # names() is used to show that a_nap ,  
+#'  names(BL)
+#'  BL$a_nap
+#'  BL["a_nap"]
+#'  
+#' 
 setMethod("$", signature = "SpcList", 
 		function(x, name) {
 			myn = names(x)
