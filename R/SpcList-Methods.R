@@ -337,7 +337,7 @@ setMethod("spc.invalid.detect", signature = "list", def=function(source1){
 #########################################################################
 # Method : spc.getheader
 #########################################################################
-#' Extract a field of the header slot of a \code{Spclist} object
+#' Extract a field of the header slot of a Spclist object
 #' @description
 #' Extracts the value of a field in the header slot of \code{Spclist} object
 #'
@@ -352,9 +352,10 @@ setMethod("spc.invalid.detect", signature = "list", def=function(source1){
 #' @examples 
 #' sp=spc.example_spectra()
 #' BL = spc.makeSpcList(sp,"STATION")
+#' BL = spc.data2header(BL,"Station","STATION", compress = T)
 #' spc.getheader(BL)
 #' #or
-#' spc.getheader(BL,"Latitude")
+#' spc.getheader(BL,"Station")
 #' 
 setMethod("spc.getheader", signature = "list", def = function (object,name){
 			sapply(object, spc.getheader,name)
@@ -363,16 +364,40 @@ setMethod("spc.getheader", signature = "list", def = function (object,name){
 #########################################################################
 # Method : spc.setheader<-
 #########################################################################
-setReplaceMethod(f="spc.setheader", signature="list",
+#' Set a field of the header slot of a Spclist object
+#' @description
+#' This function sets or changes the header slot of each \code{Spectra} object within 
+#' \code{Spclist} object with provided list of SpcHeader objects. Both \code{object}
+#' and \code{value} must be of same lenght.
+#'
+#'@usage 
+#' spc.setheader(object)<-value
+#'
+#' @seealso \code{\link{spc.getheader}}
+#' @param object A \code{Spclist} object 
+#' @param value A list of SpcHeader objects to be set
+#' @examples 
+#' sp=spc.example_spectra()
+#' BL = spc.makeSpcList(sp,"STATION")
+#' a=new("SpcHeader") # create new SpcHeader object
+#' #Make 4 copies of the SpcHeader object, with different 'Station' fields
+#' new_headers = lapply(1:length(a), function(x) a)
+#' new_headers = lapply(1:length(new_headers), function(x) {new_headers[[x]]$Station=paste0("Station",x); new_headers[[x]]})
+#' new_headers
+#' #Replace the 'Station' field of each Spectra object in the SpcList
+#' spc.setheader(BL,"Station") <- new_headers
+#' spc.getheader(BL,"Station")
+setReplaceMethod(f="spc.setheader", signature=c("list","list"),
 		definition=function(object,value,...){
 			if(inherits(value,"Spectra"))
 				stop("It is forbidden to set a SpcHeader an object that inherits from the Spectra class")
-			if(length(value)==1)
-				value = rep(value,length(object))
-			stopifnot(length(value)==length(object))			
 			
-			a=sapply(1:length(object), function(x) {
-						object[[x]] = spc.setheader(object[[x]],value[x])
+		  stopifnot(length(value)==length(object))			
+			stopifnot(all(sapply(value, class)=="SpcHeader"))
+			
+			a=lapply(1:length(object), function(x) {
+						spc.setheader(object[[x]]) <<- value[[x]]
+						object
 					})
 			validObject(object)
 			return(object)

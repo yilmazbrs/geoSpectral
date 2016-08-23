@@ -3,7 +3,7 @@
 \docType{methods}
 \name{spc.getheader,list-method}
 \alias{spc.getheader,list-method}
-\title{Extract a field of the header slot of a \code{Spclist} object}
+\title{Extract a field of the header slot of a Spclist object}
 \usage{
 spc.getheader(object,name)
 }
@@ -18,9 +18,10 @@ Extracts the value of a field in the header slot of \code{Spclist} object
 \examples{
 sp=spc.example_spectra()
 BL = spc.makeSpcList(sp,"STATION")
+BL = spc.data2header(BL,"Station","STATION", compress = T)
 spc.getheader(BL)
 #or
-spc.getheader(BL,"Latitude")
+spc.getheader(BL,"Station")
 
 }
 \seealso{
