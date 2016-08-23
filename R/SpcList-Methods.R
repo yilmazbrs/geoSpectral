@@ -405,6 +405,21 @@ setReplaceMethod(f="spc.setheader", signature=c("list","list"),
 #########################################################################
 # Method : spc.updateheader<-
 #########################################################################
+#' Update a field of the header slot of a Spclist object
+#' @description
+#'  Updates or changes the value of a field in the header slot of \code{Spclist} object 
+#'
+#' @usage 
+#' spc.updateheader(onject,name)<-value
+#'
+#' @param object A \code{Spectra} objec 
+#' @param name of the header field to be updated
+#' @examples 
+#' sp=spc.example_spectra()
+#' BL = spc.makeSpcList(sp,"STATION")
+#' spc.getheader(BL)
+#' spc.updateheader(BL,"Station")<-11
+#' spc.getheader(BL)
 setReplaceMethod(f="spc.updateheader", signature="list",
 		definition=function(object,Name,value,...){
 			if(inherits(value,"Spectra"))
