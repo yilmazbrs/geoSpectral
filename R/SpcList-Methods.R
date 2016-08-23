@@ -290,7 +290,7 @@ setMethod("$", signature = "SpcList",
 #' @examples
 #' x <- spc.example_spectra()
 #' BL = spc.makeSpcList(x,"STATION")
-#' show(x)
+#' show(BL)
 #' 
 #' 
 setMethod("show", "SpcList", function(object){
@@ -312,8 +312,19 @@ setMethod("show", "SpcList", function(object){
 #########################################################################
 # Constructor function : SpcList()
 #########################################################################
-SpcList = function (spclist){
-	new("SpcList", spclist)
+#' Construction a Spclist object
+#'
+#' @description
+#' Create a \code{Spclist} object by using list of \code{Spactra} object
+#'
+#' 
+#' @param listofsp A \code{Spclist} object 
+#' @examples 
+#' sp$CLASS = factor(c(rep("c",12), rep("a",6), rep("b",8)))
+#' sp$CLASS 
+#' SpcList(sp$CLASS)
+SpcList = function (listofsp){
+	new("SpcList", listofsp)
 }
 #########################################################################
 # Method : spc.invalid.detect

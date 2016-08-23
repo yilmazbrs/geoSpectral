@@ -21,7 +21,7 @@ Display a \code{Spclist} object
 \examples{
 x <- spc.example_spectra()
 BL = spc.makeSpcList(x,"STATION")
-show(x)
+show(BL)
 
 
 }
