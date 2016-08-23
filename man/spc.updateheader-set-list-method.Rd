@@ -21,5 +21,12 @@ BL = spc.makeSpcList(sp,"STATION")
 spc.getheader(BL)
 spc.updateheader(BL,"Station")<-11
 spc.getheader(BL)
+###################################
+#Extract the maximum depth for each station and store it in header field 'MaxDepth'
+BL=lapply(BL, function(x) {
+spc.updateheader(x, "MaxDepth")<-max(x$DEPTH)
+  x
+})
+spc.getheader(BL,"MaxDepth")
 }
 

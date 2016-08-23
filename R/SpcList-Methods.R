@@ -420,6 +420,13 @@ setReplaceMethod(f="spc.setheader", signature=c("list","list"),
 #' spc.getheader(BL)
 #' spc.updateheader(BL,"Station")<-11
 #' spc.getheader(BL)
+#' ###################################
+#' #Extract the maximum depth for each station and store it in header field 'MaxDepth'
+#' BL=lapply(BL, function(x) {
+#' spc.updateheader(x, "MaxDepth")<-max(x$DEPTH)
+#'   x
+#' })
+#' spc.getheader(BL,"MaxDepth")
 setReplaceMethod(f="spc.updateheader", signature="list",
 		definition=function(object,Name,value,...){
 			if(inherits(value,"Spectra"))
@@ -438,9 +445,44 @@ setReplaceMethod(f="spc.updateheader", signature="list",
 #########################################################################
 # Method : spc.data2header
 #########################################################################
+#' Populate fields of header slot of a Spclist object  using data from data slot 
+#' @description
+#' Populates a field of header of a Spclist object with a column data from data slot.
+#'
+#' @usage 
+#' spc.data2header(object,dataname,headerfield,compress)
+#'
+#' 
+#' @param dataname A character object specifying the name of data column to be used
+#' @param object \code{Spclist} object 
+#' @param compress true or false
+#' @param headerfield A character object specifying the name of the header field to be changed
+#'  
+#' @return object of class \code{Spclist}
+#' @details 
+#' This function extracts data from a column of the @data slot (specified by dataname)  
+#' and creates a new header of a Spclist object field with it. If headerfield is not provided, the name 
+#' of the new header field will be the same as dataname. 
+#' The name of the new header field can be overwritten by providing headerfield.
+#' If all the incoming data rows (dataname) are the same, information put into the header 
+#' can be compressed by selecting compress=TRUE (default is FALSE). This would take only the first element 
+#' from the @data column.
+#' 
+#' @examples 
+#' sp=spc.example_spectra()
+#' BL = spc.makeSpcList(sp,"STATION")
+#' BL=spc.data2header(BL,"CRUISE")
+#' spc.getheader(BL,"CRUISE")
+#' spc.getheader(BL)
+#' BL=spc.data2header(BL,"CAST","ProjectCast",compress = F)
+#' spc.getheader(BL,"ProjectCast")
+#' 
 setMethod("spc.data2header", signature = "list", 
 		def=function(object,dataname,headerfield,compress=TRUE,...){
-			temp = lapply(object, spc.data2header, headerfield,dataname,compress,...)
+		  if(missing(headerfield))
+		    headerfield = dataname
+		  
+			temp = lapply(object, spc.data2header, dataname, headerfield,compress,...)
 			object@.Data=temp
 			return(object)
 		})
