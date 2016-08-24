@@ -497,6 +497,8 @@ setMethod("spc.data2header", signature = "list",
 #' @param x A \code{Spclist} object
 #' @param which.col A number or name of column and default is that decreaing is False
 #' @examples 
+#' sp=spc.example_spectra()
+#' BL = spc.makeSpcList(sp,"STATION")
 #' p=sort(BL,"anap_301", decreasing = TRUE)
 #' p[[2]]$anap_301
 #' #or 
@@ -511,13 +513,31 @@ setMethod("sort", signature="list", definition= function (x, decreasing = FALSE,
 #########################################################################
 # Method : spc.lapply
 #########################################################################
+#' Apply a function over  a Spclist object
+#' @description
+#' spc.lapply returns a list of the same length as a \code{Spectra} object, each element of which is the result of applying FUN to the corresponding element of \code{Spectra} object.
+#' @param X A \code{Spectra} object
+#' @param FUN The function to be applied to each element of \code{Spectra} object
+#' @param ... Optional arguments to FUN.
+#' @examples 
+#' sp=spc.example_spectra() 
+#' BL = spc.makeSpcList(sp,"STATION")
+#' BL2=spc.lapply(BL, function(x) x=x+1)
+#' class(BL2)
+#'  BL2@by
+#'  # if we use spc.lapply(), we keep @by slot but if we use lapply(), we lose it
+#'  BL2=lapply(BL, function(x) x=x+1)
+#'  class(BL2)
+#'  
 setGeneric (name= "spc.lapply",
 		def=function(X, FUN,...){standardGeneric("spc.lapply")})
 setMethod("spc.lapply", signature="SpcList", definition= function (X, FUN, ...) {
 			by = X@by
 			X = lapply(as(X,"list"),FUN,...)
-			X = as(X, "SpcList")
-			X@by = by
+			if (all(sapply(X, class)=="Spectra")) {
+			  X = as(X, "SpcList")
+			  X@by = by
+			}
 			validObject(X)
 			return(X)
 		})

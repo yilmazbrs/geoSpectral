@@ -19,6 +19,8 @@ Returns a \code{Spclist} object
 Sort \code{Spclist} objects into ascending or descending order.
 }
 \examples{
+sp=spc.example_spectra()
+BL = spc.makeSpcList(sp,"STATION")
 p=sort(BL,"anap_301", decreasing = TRUE)
 p[[2]]$anap_301
 #or 
