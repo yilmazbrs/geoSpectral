@@ -544,6 +544,30 @@ setMethod("spc.lapply", signature="SpcList", definition= function (X, FUN, ...) 
 #########################################################################
 # Method : spc.header2data
 #########################################################################
+#' Get header slot of a Spclist object for data
+#' @description
+#' Get  the header slot of a \code{Spclist} object for data of each element  with a column
+#'
+#' @usage 
+#' spc.data2header(object,headerfield,dataname )
+#'
+#' 
+#' @param dataname A character object specifying the name of data column to be used
+#' @param object A \code{Spclist} object 
+#' @param headerfield  A character object specifying the name of the header field 
+#' @param compress true or false
+#' @details 
+#' If header element has length >1, its type is checked. If it is "character",
+#' its elements will be pasted using paste(...,collapse="|"). If it is another 
+#' type, only the first element will be taken.  
+#' 
+#' @examples 
+#' sp=spc.example_spectra()
+#' BL = spc.makeSpcList(sp,"STATION")
+#' BL=spc.data2header(BL,"CRUISE")
+#' spc.getheader(BL,"CRUISE")
+#' spc.header2data(BL,"CRUISE")
+#' 
 .h2d = function(object,headerfield,dataname,compress=TRUE,...) {
 	if(missing(dataname))
 		dataname=headerfield	
