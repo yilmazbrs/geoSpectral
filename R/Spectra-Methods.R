@@ -2377,7 +2377,13 @@ setMethod("spc.plot.depth.plotly", signature="Spectra", function (sp, column, pl
                           autorange = "reversed"))
   p 
 })
-
+setMethod("sort", signature="Spectra", definition= function (x, decreasing = FALSE, which.col,...){
+  if(nrow(x)>1){
+    out = sort(x[[which.col]], index.return=T, decreasing = decreasing, ...)
+    x=x[out$ix,]  
+  }
+  return(x)
+})
 
 
 

@@ -489,11 +489,22 @@ setMethod("spc.data2header", signature = "list",
 #########################################################################
 # Method : sort
 #########################################################################
-setMethod("sort", signature="list", definition= function (x, which.col, decreasing = FALSE, ...){
-			newdata = lapply(x, sort, which.col=which.col, decreasing=decreasing, ...)
-			x@.Data = newdata
-			return(x)
-		})
+#' Sort a Spclist object
+#' @description
+#' Sort \code{Spclist} objects into ascending or descending order.
+#' 
+#' @return Returns a \code{Spclist} object
+#' @param x A \code{Spclist} object
+#' @param which.col A number or name of column and default is that decreaing is False
+#' @examples 
+#' 
+#' 
+
+setMethod("sort", signature="list", definition= function (x, decreasing = FALSE, which.col, ...){
+  newdata = lapply(x, sort, which.col=which.col, decreasing=decreasing, ...)
+  x@.Data = newdata
+  return(x)
+})
 
 #########################################################################
 # Method : spc.lapply
