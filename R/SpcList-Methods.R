@@ -497,9 +497,11 @@ setMethod("spc.data2header", signature = "list",
 #' @param x A \code{Spclist} object
 #' @param which.col A number or name of column and default is that decreaing is False
 #' @examples 
-#' 
-#' 
-
+#' p=sort(BL,"anap_301", decreasing = TRUE)
+#' p[[2]]$anap_301
+#' #or 
+#' p=sort(BL,"anap_301", decreasing = FALSE)
+#' p[[2]]$anap_301
 setMethod("sort", signature="list", definition= function (x, decreasing = FALSE, which.col, ...){
   newdata = lapply(x, sort, which.col=which.col, decreasing=decreasing, ...)
   x@.Data = newdata

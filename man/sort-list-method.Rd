@@ -19,7 +19,10 @@ Returns a \code{Spclist} object
 Sort \code{Spclist} objects into ascending or descending order.
 }
 \examples{
-
-
+p=sort(BL,"anap_301", decreasing = TRUE)
+p[[2]]$anap_301
+#or 
+p=sort(BL,"anap_301", decreasing = FALSE)
+p[[2]]$anap_301
 }
 
