@@ -132,14 +132,14 @@ test_that("test for spc.getheader ()",{
      expect_equal(as.numeric(sp@header[6]),33)
  })
  
- 
+ test_that("test for spc.plot() when we put Spclist object",{
+   spl=SpcList(sp@Wavelengths)
+   expect_error(spc.plot(spl))
+   
+ })
 
 
 
-
- #' sp@header
- #' sp$CAST=rep(33, nrow(sp))
- #' sp=spc.data2header(sp,"CAST","ProjectCast", compress=T)
 
 
 
