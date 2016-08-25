@@ -135,6 +135,13 @@ test_that("test for spc.getheader ()",{
  test_that("test for spc.plot() when we put Spclist object",{
    spl=SpcList(sp@Wavelengths)
    expect_error(spc.plot(spl))
+   expect_error(spc.plot.depth(spl))
+   expect_error(spc.plot.time(spl))
+   expect_error(spc.plot.grid(spl))
+   expect_error(spc.plot.plotly(spl))
+   expect_error(spc.plot.overlay(spl))
+   expect_error(spc.plot.plotly(spl))
+   
    
  })
 
