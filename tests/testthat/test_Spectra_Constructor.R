@@ -110,7 +110,13 @@ test_that("test for spc.getheader ()",{
             
      })
 
-
+ test_that("test for spc.updateheader()",{
+   a=new("SpcHeader")
+   a$Longitude=123
+   spc.updateheader(sp,"Station")<- 11
+   expect_equal((as.numeric(sp@header[1])),11)
+   
+ })
 
 
 
