@@ -647,7 +647,7 @@ setMethod("spc.lines",signature = "Spectra",definition = function(x,...){
 #' @examples
 #' x <- spc.example_spectra()
 #' nrow(x)  #[1] 26
-#' 
+#' x2=spc.rbind(sp,sp)
 #' 
 #' nrow(x2)  #[1] 52
 #' 

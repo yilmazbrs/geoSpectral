@@ -60,4 +60,68 @@ test_that("Show Spectra",{
   
   })
 
+test_that("test for $ and [] ",{
+  expect_is(sp$anap_300,"numeric")
+  expect_output(show(sp[,"anap_300"]), "Spectra Columns:  anap_300 ...")
+})
+
+test_that("test for spc.colnames()",{
+  expect_true(all("anap_409"%in%spc.colnames(sp)))
+  
+})
+
+test_that("test for spc.rbinds()",{
+  sp2=spc.rbind(sp,sp)
+  expect_equal(nrow(sp2),(nrow(sp)*2))
+  
+})
+
+test_that("test for spc.getwavelengh()",{
+  wl=spc.getwavelengths(sp)
+  expect_equal(length(wl), ncol(sp))
+  
+})
+
+
+test_that("test for spc.setwavelengh()",{
+  
+  expect_error(spc.setwavelengths(sp) <- num <- (ncol(sp)*2))
+  
+})
+
+test_that("test for spc.cname.construct()",{
+  a=spc.cname.construct(sp,"Newvar")
+  expect_match(a[1],"Newvar_300")
+  
+})
+
+test_that("test for spc.getheader ()",{
+  a=sp@header
+  expect_true(all(a[1]%in%spc.getheader(sp)))
+  
+})
+
+
+ test_that("test for spc.setheader()",{
+          a=new("SpcHeader")
+          a$Longitude=123
+          spc.setheader(sp,"Station") <- a 
+          expect_equal((as.numeric(sp@header[4])),123)
+            
+     })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
