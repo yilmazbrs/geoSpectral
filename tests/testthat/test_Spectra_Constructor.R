@@ -102,7 +102,7 @@ test_that("test for spc.getheader ()",{
 })
 
 
- test_that("test for spc.setheader()",{
+ test_that("test for spc.setheader() and guve number and new header , check it",{
           a=new("SpcHeader")
           a$Longitude=123
           spc.setheader(sp,"Station") <- a 
@@ -110,7 +110,7 @@ test_that("test for spc.getheader ()",{
             
      })
 
- test_that("test for spc.updateheader()",{
+ test_that("test for spc.updateheader() and give number to header and check it",{
    a=new("SpcHeader")
    a$Longitude=123
    spc.updateheader(sp,"Station")<- 11
@@ -119,11 +119,27 @@ test_that("test for spc.getheader ()",{
  })
 
 
+ test_that("test for spc.data2header() and give number to header and check it",{
+   sp=spc.example_spectra()
+    sp=spc.data2header(sp,"CAST")
+    sp@header
+    sp=spc.data2header(sp,"CAST","ProjectCast")
+    sp@header
+    sp$CAST=rep(33, nrow(sp))
+    sp=spc.data2header(sp,"CAST","ProjectCast", compress=T)
+    
+     expect_match(names(sp@header[6]),"ProjectCast",ignore.case = FALSE)
+     expect_equal(as.numeric(sp@header[6]),33)
+ })
+ 
+ 
 
 
 
 
-
+ #' sp@header
+ #' sp$CAST=rep(33, nrow(sp))
+ #' sp=spc.data2header(sp,"CAST","ProjectCast", compress=T)
 
 
 
