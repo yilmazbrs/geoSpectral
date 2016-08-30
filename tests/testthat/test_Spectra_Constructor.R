@@ -210,9 +210,22 @@ test_that("test for spc.getheader ()",{
    
  })
  
+ test_that("test for spc.plot()",{
+   
+   expect_error( spc.plot(sp@Spectra))
+   
+   
+ })
+ 
 
-
-
+ 
+ test_that("test for spc.makeSpcList()",{
+   BL=spc.makeSpcList(sp,"STATION")
+   expect_equal( sum(sapply(BL,nrow)),nrow(sp))
+   
+   
+ })
+ 
 
 
 
