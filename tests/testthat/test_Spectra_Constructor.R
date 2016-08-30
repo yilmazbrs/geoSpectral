@@ -247,14 +247,33 @@ test_that("test for spc.getheader ()",{
  test_that("test for spc.plot.time()",{
   
    expect_warning(spc.plot.time(sp,maxSp=50), NA)
-  # expect_warning(spc.plot.time(sp,maxSp=500), NA)
+   expect_warning(spc.plot.time(sp,maxSp=500), NA) 
    
  }) 
  
+   test_that("test for spc.plot.time()",{
+   
+   expect_warning(spc.plot.depth(sp,maxSp=11), NA)
+   expect_warning(spc.plot.depth(sp,maxSp=100), NA) 
+   
+  }) 
  
  
+  # test_that("test for spc.plot.time.plotly()",{
+   #  
+    # expect_massage(spc.plot.time.plotly(sp,plot.max = 5),NA)
+     #expect_massage(spc.plot.time.plotly(sp,plot.max = 45),NA) 
+    #
+   #}) 
  
- 
+   test_that("test for names() in SpcList",{
+     sp <- spc.example_spectra()
+     BL = spc.makeSpcList(sp,"STATION")
+     expect_equal(length(levels(sp$STATION)), length(names(BL)))
+     
+     
+   }) 
+   
  
  
  
