@@ -226,6 +226,14 @@ test_that("test for spc.getheader ()",{
    
  })
  
+ test_that("test for spc.setinvalid.idx()",{
+   vld = rep(TRUE,26)
+   vld[1:5]<-FALSE
+   
+   expect_false( all(spc.setinvalid.idx(sp)<-vld))
+   
+   
+ })
 
 
 
