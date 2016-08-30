@@ -2,7 +2,7 @@ library(geoSpectral)
 context("Constructor Function for Spectra class")
 
 sp <- spc.example_spectra()
-
+BL = spc.makeSpcList(sp,"STATION")
 test_that("Output of Spectra() is of type 'Spectra' ", {
   expect_is(sp,"Spectra")
   expect_equal(nrow(sp), 26)
@@ -274,10 +274,20 @@ test_that("test for spc.getheader ()",{
      
    }) 
    
+  #  test_that("test for names() in SpcList",{
+    # sp <- spc.example_spectra()
+     #BL = spc.makeSpcList(sp,"STATION")
+     #expect_output(show(BL),  "501 spectral channels in columns and 26 observations in rows")
+       #}) 
  
- 
- 
- 
+   test_that("test for spc.getheader() in SpcList",{
+     
+     bb=spc.getheader(sp)
+     aa=spc.getheader(BL)
+      expect_equal(names(bb), names(aa[,1]))
+     
+     
+   }) 
  
  
  

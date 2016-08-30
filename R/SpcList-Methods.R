@@ -356,6 +356,7 @@ setMethod("spc.invalid.detect", signature = "list", def=function(source1){
 #' spc.getheader(BL)
 #' #or
 #' spc.getheader(BL,"Station")
+
 #' 
 setMethod("spc.getheader", signature = "list", def = function (object,name){
 			sapply(object, spc.getheader,name)
