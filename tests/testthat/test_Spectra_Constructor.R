@@ -229,11 +229,18 @@ test_that("test for spc.getheader ()",{
  test_that("test for spc.setinvalid.idx()",{
    vld = rep(TRUE,26)
    vld[1:5]<-FALSE
-   
    expect_false( all(spc.setinvalid.idx(sp)<-vld))
    
    
  })
 
 
-
+ test_that("test for spc.import.text()",{
+   sp=spc.example_spectra()
+   spc.export.text(sp,filename="anap.txt")
+   aa=spc.import.text("anap.txt")
+   expect_true((class(aa)=="Spectra"))
+   
+   
+ })
+ 
