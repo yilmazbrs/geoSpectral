@@ -1843,7 +1843,7 @@ spc.import.text = function(filename,sep=";",...){
 #' @return None. Simply creates an Excel file on disk.
 #'
 #' @examples
-#' sp=spc.example_spectra()
+#' sp=spc.example_spectra() 
 #' if("xlsx" %in% installed.packages())
 #'    spc.export.xlsx(sp,"test.xlsx")
 setGeneric(name="spc.export.xlsx",

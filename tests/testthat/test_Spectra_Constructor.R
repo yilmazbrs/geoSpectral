@@ -239,8 +239,27 @@ test_that("test for spc.getheader ()",{
    sp=spc.example_spectra()
    spc.export.text(sp,filename="anap.txt")
    aa=spc.import.text("anap.txt")
-   expect_true((class(aa)=="Spectra"))
+   expect_true(class(aa)=="Spectra")
    
    
- })
+ }) 
+ 
+ test_that("test for spc.plot.time()",{
+  
+   expect_warning(spc.plot.time(sp,maxSp=50), NA)
+  # expect_warning(spc.plot.time(sp,maxSp=500), NA)
+   
+ }) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  
