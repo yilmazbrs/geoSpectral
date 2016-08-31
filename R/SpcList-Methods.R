@@ -416,7 +416,7 @@ setReplaceMethod(f="spc.setheader", signature=c("list","list"),
 #' @param object A \code{Spectra} objec 
 #' @param name of the header field to be updated
 #' @examples 
-#' sp=spc.example_spectra()
+#' sp=spc.example_spectra() 
 #' BL = spc.makeSpcList(sp,"STATION")
 #' spc.getheader(BL)
 #' spc.updateheader(BL,"Station")<-11

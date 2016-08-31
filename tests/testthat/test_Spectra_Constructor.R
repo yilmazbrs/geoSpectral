@@ -289,6 +289,32 @@ test_that("test for spc.getheader ()",{
      
    }) 
  
- 
+   #test_that("test for SpcList() in SpcList",{
+     
+    # sp$CLASS = factor(c(rep("c",12), rep("a",6), rep("b",8)))
+     #aa=SpcList(sp$CLASS)
+     #expect_is(aa, "SpcList")
+     
+     
+   #}) 
+   
+  
+    test_that("test for spc.getheader() in SpcList",{
+     
+     spc.updateheader(BL,"Station")<-11
+     aa=spc.getheader(BL)
+     expect_equal(aa[[1]], 11)
+    
+    })
+    
+   
+   
+   
+   
+   
+   
+   
+   
+   
  
  
