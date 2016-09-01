@@ -94,7 +94,7 @@ test_that("test for spc.cname.construct()",{
 
 test_that("test for spc.getheader ()",{
   a=sp@header
-  expect_true(all(a[1]%in%spc.getheader(sp)))
+  expect_true(all(a[1:length(a)]%in%spc.getheader(sp)))
   
 })
 
