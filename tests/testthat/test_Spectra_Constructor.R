@@ -1,4 +1,6 @@
 library(geoSpectral)
+library(testthat)
+library(plotly)
 context("Constructor Function for Spectra class")
 
 sp <- spc.example_spectra()
@@ -244,7 +246,7 @@ test_that("test for spc.getheader ()",{
    
  }) 
  
-   test_that("test for spc.plot.time()",{
+   test_that("test for spc.plot.depth()",{
    
    expect_warning(spc.plot.depth(sp,maxSp=11), NA)
    expect_warning(spc.plot.depth(sp,maxSp=100), NA) 
@@ -252,12 +254,12 @@ test_that("test for spc.getheader ()",{
   }) 
  
  
-  # test_that("test for spc.plot.time.plotly()",{
-   #  
-    # expect_massage(spc.plot.time.plotly(sp,plot.max = 5),NA)
-     #expect_massage(spc.plot.time.plotly(sp,plot.max = 45),NA) 
-    #
-   #}) 
+   test_that("test for spc.plot.time.plotly()",{
+     
+    expect_warning(spc.plot.time.plotly(sp,plot.max = 5),NA)
+    expect_warning(spc.plot.time.plotly(sp,plot.max = 45),NA) 
+    
+   }) 
  
    test_that("test for names() in SpcList",{
      sp <- spc.example_spectra()
