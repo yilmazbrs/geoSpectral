@@ -77,7 +77,8 @@ test_that("test for spc.getwavelengh()",{
   wl=spc.getwavelengths(sp)
   expect_equal(length(wl), ncol(sp))
   expect_equal(spc.getwavelengths(sp),sp@Wavelengths)
-})
+
+  })
 
 
 test_that("test for spc.setwavelengh()",{
@@ -176,12 +177,7 @@ test_that("test for spc.getheader ()",{
    
  })
  
- test_that("test for spc.getwavelenghts()",{
-   
-   expect_equal(length(spc.getwavelengths(sp)),ncol(sp))
-   
-   
- })
+
  
  
  test_that("test for spc.update()",{
@@ -210,7 +206,7 @@ test_that("test for spc.getheader ()",{
  test_that("test for spc.plot()",{
    
    expect_error( spc.plot(sp@Spectra))
-   
+   expect_warning(spc.plot(sp),NA)
    
  })
  
