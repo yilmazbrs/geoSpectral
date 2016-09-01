@@ -53,8 +53,10 @@ test_that("Tests for head()", {
  })
 
 test_that("rbind test for Spectral object" ,{
+  spr=spc.rbind(sp,sp)
   expect_equal(length(spc.rbind(sp,sp)),length(sp)*2)
-})
+  expect_is(spr,"Spectra")
+  })
 
 test_that("Show Spectra",{
   expect_output(show(sp),"501 spectral channels in columns and 26 observations in rows")
