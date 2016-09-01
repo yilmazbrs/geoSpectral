@@ -66,18 +66,12 @@ test_that("Show Spectra",{
 test_that("test for $ and [] ",{
   expect_is(sp$anap_300,"numeric")
   expect_output(show(sp[,"anap_300"]), "Spectra Columns:  anap_300 ...")
-})
+  expect_equal(as.character(sp$CRUISE),as.character(sp[[2]]))
+  })
 
-test_that("test for spc.colnames()",{
-  expect_true(all("anap_409"%in%spc.colnames(sp)))
-  
-})
 
-test_that("test for spc.rbinds()",{
-  sp2=spc.rbind(sp,sp)
-  expect_equal(nrow(sp2),(nrow(sp)*2))
-  
-})
+
+
 
 test_that("test for spc.getwavelengh()",{
   wl=spc.getwavelengths(sp)
