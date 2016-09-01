@@ -31,9 +31,11 @@ test_that("nuber of row and column are equal to output of ncol and nrow", {
 
 test_that("Test for names() ", {
   
+   expect_warning(names(sp),NA)
   expect_is(names(sp),"character")
-  expect_equal(length(names(sp)),512)
-})
+  expect_length(names(sp),512)
+  
+   })
 
 hd=head(sp,7)
 test_that("Tests for head()", {
@@ -44,12 +46,11 @@ test_that("Tests for head()", {
   expect_is(hd,"matrix")
 })
 
-test_that("test for spc.colnames()", {
+ test_that("test for spc.colnames()", {
   expect_is(spc.colnames(sp),"character")
   expect_equal(length(spc.colnames(sp)),ncol(sp))
-  a = "anap_300" %in% spc.colnames(sp)
-  expect_equal(a,TRUE)
-})
+  expect_true(all(spc.colnames(sp)%in%names(sp)))
+ })
 
 test_that("rbind test for Spectral object" ,{
   expect_equal(length(spc.rbind(sp,sp)),length(sp)*2)
