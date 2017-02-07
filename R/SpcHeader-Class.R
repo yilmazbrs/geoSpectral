@@ -1,46 +1,57 @@
-# TODO: Add comment
-# 
-# Author: acizmeli
-###############################################################################
 
 #########################################################################
-# Class : BiooHeader	
+# Class : SpcHeader	
 #########################################################################
-setClass("BiooHeader", contains="list",
+#'  \code{SpcHeader} class.
+#' @description Definition for \code{SpcHeader}. This class is required
+#' for the @header slot of \code{Spectra} object.
+#' 
+#' @examples 
+#' new("SpcHeader")
+setClass("SpcHeader", contains="list",
 		prototype=prototype(list(Station=NA,Cruise=NA,Latitude=NA,Longitude=NA)))
 setMethod("initialize",
-		signature(.Object = "BiooHeader"),
+		signature(.Object = "SpcHeader"),
 		function (.Object, ...) 
 		{
-#			cat("---------BiooHeader::Initialize\n")						
+#			cat("---------SpcHeader::Initialize\n")						
 			.Object <- callNextMethod()
 			#			validObject(.Object)
 			return(.Object)
 		})
 
-setValidity("BiooHeader", function(object){
-#			cat("---------Bioo::setValidity\n")
+setValidity("SpcHeader", function(object){
+#			cat("---------Spc::setValidity\n")
 			return(TRUE)
 		})
 
 
 #########################################################################
-# Class : BiooHeaderList	
+# Class : SpcHeaderList	
 #########################################################################
-setClass("BiooHeaderList", contains="list",
-		prototype=prototype(list(new("BiooHeader"))))
+#'  \code{SpcHeaderList} class.
+#' @description Definition for \code{SpcHeaderList}. This class provides
+#' a collection of multiple \code{SpcHeader} objects inside a list.
+#' 
+#' @examples 
+#' h1 = new("SpcHeader")
+#' h2 = new("SpcHeader")
+#' as(list(h1, h2), "SpcHeaderList")
+#' new("SpcHeaderList") 
+setClass("SpcHeaderList", contains="list",
+		prototype=prototype(list(new("SpcHeader"))))
 
 setMethod("initialize",
-		signature(.Object = "BiooHeaderList"),
+		signature(.Object = "SpcHeaderList"),
 		function (.Object, ...) 
 		{
-#			cat("---------BiooHeader::Initialize\n")						
+#			cat("---------SpcHeader::Initialize\n")						
 			.Object <- callNextMethod()
 			#			validObject(.Object)
 			return(.Object)
 		})
 
-setValidity("BiooHeaderList", function(object){
-#			cat("---------Bioo::setValidity\n")
+setValidity("SpcHeaderList", function(object){
+#			cat("---------Spc::setValidity\n")
 			return(TRUE)
 		})
