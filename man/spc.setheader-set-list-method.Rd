@@ -3,21 +3,29 @@
 \docType{methods}
 \name{spc.setheader<-,list-method}
 \alias{spc.setheader<-,list-method}
-\title{Set a field of the @header slot of a \code{spclist} object}
+\title{Set a field of the @header slot of a \code{SpcList} object}
 \usage{
 \S4method{spc.setheader}{list}(object) <- value
 }
 \arguments{
+<<<<<<< HEAD
 \item{value}{Object of class SpcList}
 
 \item{x}{A \code{SpcList} object}
+=======
+\item{object}{A \code{SpcList} object.}
+>>>>>>> f1e6acacecbb765302786737b78406f6151356f1
 
-\item{name}{of the header field to be setted}
+\item{value}{Object of class SpcList.}
 
+<<<<<<< HEAD
 \item{...}{arguments to be passed to or from other methods}
+=======
+\item{...}{arguments to be passed to or from other methods.}
+>>>>>>> f1e6acacecbb765302786737b78406f6151356f1
 }
 \description{
-Function sets or changes the value of a field in the header slot of \code{spclist} object
+Function sets or changes the value of a field in the header slot of \code{SpcList} object.
 }
 \examples{
 sp=spc.example_spectra()

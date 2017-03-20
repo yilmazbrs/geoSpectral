@@ -1,0 +1,4 @@
+Spectra|header;Station;NA
+Spectra|header;Cruise;NA
+Spectra|header;Latitude;NA
+Spectra|header;Longitude;NA

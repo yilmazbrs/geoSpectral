@@ -6,18 +6,32 @@
 \alias{spc.plot.depth,Spectra-method}
 \title{Plotting \code{Spectra} object}
 \usage{
+<<<<<<< HEAD
 spc.plot.depth(object, ...)
+=======
+spc.plot.depth(object,X,maxSp,lab_cex,title, add, xlab, ylab, ylim,xlim,lwd,...)
+>>>>>>> f1e6acacecbb765302786737b78406f6151356f1
 
 \S4method{spc.plot.depth}{Spectra}(object, X, maxSp = 10, lab_cex, title,
   add = FALSE, xlab = NULL, ylab = NULL, ylim = NULL, xlim = NULL,
   lwd = 2, ...)
 }
 \arguments{
+<<<<<<< HEAD
 \item{object}{a \code{Spectra} data}
 
 \item{...}{any further arguments of plot}
 
 \item{maxSp}{maximum number of \code{Spectra} to plot}
+=======
+\item{object}{a \code{Spectra} data.}
+
+\item{...}{any further arguments of plot}
+
+\item{X}{character. Column names of the a \code{Spectra} object to be plotted.}
+
+\item{maxSp}{numeric. Maximum number of \code{Spectra} to plot.}
+>>>>>>> f1e6acacecbb765302786737b78406f6151356f1
 
 \item{lab_cex}{vector of character expansion sizes, used cyclically.}
 
@@ -29,9 +43,13 @@ spc.plot.depth(object, ...)
 
 \item{ylim, xlim}{ranges of x and y axes, as in plot.}
 
+<<<<<<< HEAD
 \item{lwd}{vector of line widths}
 
 \item{x}{a \code{Spectra} rows}
+=======
+\item{lwd}{numeric vector of line widths}
+>>>>>>> f1e6acacecbb765302786737b78406f6151356f1
 }
 \description{
 Generating plot of the contents of a \code{Spectra} object with respect to depth

@@ -6,28 +6,42 @@
 \alias{spc.plot.time,Spectra-method}
 \title{Plotting \code{Spectra} object}
 \usage{
+<<<<<<< HEAD
 spc.plot.time(object, ...)
+=======
+spc.plot.time(object,Y,maxSp,xdata,lab_cex,lwd, ...)
+>>>>>>> f1e6acacecbb765302786737b78406f6151356f1
 
 \S4method{spc.plot.time}{Spectra}(object, Y, maxSp = 50, xdata = "time",
   lab_cex, lwd = 2, ...)
 }
 \arguments{
-\item{object}{a \code{Spectra} data}
+\item{object}{A \code{Spectra} object.}
 
 \item{...}{any further arguments of plot}
 
+<<<<<<< HEAD
 \item{Y}{a \code{Spectra} rows}
 
 \item{maxSp}{maximum number of \code{Spectra} to plot}
 
 \item{xdata}{type of data}
+=======
+\item{Y}{character. Name of the columns of the \code{Spectra} object to be plotted.}
+
+\item{maxSp}{numeric. Maximum number of \code{Spectra} to plot.}
+
+\item{xdata}{character. Type of time-series data. Can be 'time' or 'observations'.}
+>>>>>>> f1e6acacecbb765302786737b78406f6151356f1
 
 \item{lab_cex}{vector of character expansion sizes, used cyclically.}
 
 \item{lwd}{vector of line widths}
 }
 \description{
-Generating plot of the contents of a \code{Spectra} object with respect to time
+Generating plot of the contents of a \code{Spectra} object with respect to time.
+If xdata is 'time', data is plotted with respect to the 'TIME' column. If xdata 
+is 'observations', data is plotted with respect to an integer index equal to 1:nrow(object).
 }
 \examples{
 x <- spc.example_spectra()

@@ -4,11 +4,23 @@
 \name{spc.colnames}
 \alias{spc.colnames}
 \alias{spc.colnames,Spectra-method}
+\alias{spc.colnames<-}
+<<<<<<< HEAD
+=======
+\alias{spc.colnames<-,Spectra-method}
+>>>>>>> f1e6acacecbb765302786737b78406f6151356f1
 \title{Column names of \code{Spectra} object}
 \usage{
 spc.colnames(x)
 
 \S4method{spc.colnames}{Spectra}(x)
+
+spc.colnames(x) <- value
+<<<<<<< HEAD
+=======
+
+\S4method{spc.colnames}{Spectra}(x) <- value
+>>>>>>> f1e6acacecbb765302786737b78406f6151356f1
 }
 \arguments{
 \item{x}{A \code{Spectra} object}
@@ -17,11 +29,13 @@ spc.colnames(x)
 Returns the column  names of an object of class \code{Spectra} as a character  vector.
 }
 \description{
-Retrieve  column names of a \code{Spectra} object
+Retrieve column names of a \code{Spectra} object
+
+Set column names of a \code{Spectra} object
 }
 \examples{
 x <- spc.example_spectra()
-spc.colnames(x)
+head(spc.colnames(x))
 # or 
 spc.colnames(x) <- spc.cname.construct(x)
 spc.colnames(x)
