@@ -6,11 +6,7 @@
 \alias{spc.interp.spectral,Spectra-method}
 \title{Interpolate spectral values}
 \usage{
-<<<<<<< HEAD
 spc.interp.spectral(source1,target_lbd,show.plot,...)
-=======
-spc.interp.spectral(source1,target_lbd,show.plot)
->>>>>>> e7fdd1b810a5b920d85d312d88fb229fba72cd2f
 
 \S4method{spc.interp.spectral}{Spectra}(source1, target_lbd,
   show.plot = FALSE)
