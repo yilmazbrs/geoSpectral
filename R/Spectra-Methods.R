@@ -26,7 +26,7 @@
 #' @param header \code{SpcHeader} object containing metadata
 #' @param ... other input arguments to be passed to the new() function 
 #' 
-#'@details
+#' @details
 #' This constructor function uses The function \code{Spectra()} calls \code{spacetime::stConstruct()}
 #' that is the constructor  of the \code{STIDF} class using an input \code{data.frame} object of long-table format.
 #'
@@ -138,7 +138,7 @@ Spectra = function(inDF,Spectra,Wavelengths,Units,space,time,endTime,header,...)
     #Extract Units
     header = new("SpcHeader")
   }
-
+  
   #First construct a STIDF object using stConstruct()
   out = stConstruct(x=inDF,space=space,time=time,endTime=endTime)
   
@@ -179,6 +179,7 @@ Spectra = function(inDF,Spectra,Wavelengths,Units,space,time,endTime,header,...)
 #' attr(df2, "Wavelengths") <- c(500, 600)
 #' attr(df2, "ShortName") <- "abs"
 #' as(df2, "Spectra")
+#' 
 setAs(from="Spectra", to="data.frame", def=function(from){
   if(ncol(from@data)>0)
     output = cbind(as.data.frame(from@Spectra),from@data)
@@ -260,7 +261,7 @@ setAs(from="data.frame", to="Spectra", def=function(from){
     endTime = from$ENDTIME
   }
   outS =geoSpectral::Spectra(data,Spectra,Wavelengths,Units=Units,
-                          header=header,ShortName=ShortName,LongName=LongName)
+                             header=header,ShortName=ShortName,LongName=LongName)
   #			outS = new("Spectra", time = TIME, endTime = endTime,
   #					Spectra=Spectra, data=data,
   #					Wavelengths=Wavelengths, Units=Units[1], 
@@ -597,7 +598,7 @@ setMethod("spc.plot", "Spectra", function (x, Y, maxSp, lab_cex,xlab,ylab,type="
   
   inargs_in <- list(...)
   inargs_out <- c(list(x=x@Wavelengths,y=YY), inargs_in)
-
+  
   if(! ("xlim" %in% names(inargs_in))){
     xlim = range(x@Wavelengths)
     if (x@WavelengthsUnit=="cm-1")
@@ -619,11 +620,11 @@ setMethod("spc.plot", "Spectra", function (x, Y, maxSp, lab_cex,xlab,ylab,type="
     inargs_out <- c(list(cex.axis=lab_cex), inargs_out)
   if(! ("lwd" %in% names(inargs_in)))
     inargs_out <- c(list(lwd=lwd), inargs_out)
-
+  
   do.call(matplot, inargs_out)
   # matplot(x@Wavelengths,YY,#lab=x@Wavelengths,#xaxt="n",
   #         ylab= "",xlab="",type=type,xlim=xlim,pch=pch,cex=cex,cex.axis=lab_cex,lwd=lwd,...)
-
+  
   if((!("ylab" %in% names(inargs_in))))
     ylab = bquote(.(x@ShortName)*", ["*.(x@Units[1])*"]")
   else
@@ -754,7 +755,7 @@ setMethod("spc.rbind", signature = "Spectra", def = function (...,compressHeader
         if(class(myslot)[1]=="matrix"|class(myslot)[1]=="data.frame")
           slot(outt,sltn[J])<- rbind(slot(outt,sltn[J]),myslot)
         if(class(myslot)[1]=="logical"|class(myslot)[1]=="numeric"|
-             class(myslot)[1]=="character"|class(myslot)[1]=="POSIXct")
+           class(myslot)[1]=="character"|class(myslot)[1]=="POSIXct")
           if(class(myslot)[1]=="POSIXct"){
             mytz = attr(outt@endTime,"tzone")
             slot(outt,sltn[J])<-as.POSIXct(as.POSIXlt(c(slot(outt,sltn[J]),myslot),tz=mytz))
@@ -831,7 +832,7 @@ setMethod("spc.rbind", signature = "STIDF", def = function (...){
       if(class(myslot)[1]=="matrix"|class(myslot)[1]=="data.frame")
         slot(outt,sltn[J])<- rbind(slot(outt,sltn[J]),myslot)
       if(class(myslot)[1]=="logical"|class(myslot)[1]=="numeric"|
-           class(myslot)[1]=="character"|class(myslot)[1]=="POSIXct")
+         class(myslot)[1]=="character"|class(myslot)[1]=="POSIXct")
         if(class(myslot)[1]=="POSIXct"){
           mytz = attr(outt@endTime,"tzone")
           slot(outt,sltn[J])<-as.POSIXct(as.POSIXlt(c(slot(outt,sltn[J]),myslot),tz=mytz))
@@ -891,7 +892,7 @@ setMethod("spc.getwavelengths", signature = "Spectra", def = function (object){
 #' @description
 #' Function  to change or set wavelengths  inside  of  a \code{Spectra} object
 #'
-#'
+#'  
 #' @param object A \code{Spectra} object
 #' @param value Numeric 
 #' 
@@ -941,10 +942,10 @@ setGeneric("spc.cname.construct",function(object,value){standardGeneric("spc.cna
 
 #' @rdname spc.cname.construct
 setMethod(f="spc.cname.construct", signature="Spectra",definition=function(object,value){
-            if(missing(value))
-              value = object@ShortName
-            return(paste(value,round(spc.getwavelengths(object)),sep="_"))
-          })
+  if(missing(value))
+    value = object@ShortName
+  return(paste(value,round(spc.getwavelengths(object)),sep="_"))
+})
 
 ##########################################################################
 #spc.timeMatch
@@ -998,7 +999,7 @@ spc.timeMatch = function(master,searched,returnList=FALSE,method="over",limits,r
   stopifnot(inherits(searched,"ST"))
   if(method=="over")
     browser()
-    out = spacetime::timeMatch(time(master),time(searched),returnList=returnList)
+  out = spacetime::timeMatch(time(master),time(searched),returnList=returnList)
   if(method=="nearest"){
     out = sapply(time(master),function(x){mymin = which.min(abs(time(searched)-x))})
     if(returnList)
@@ -1271,7 +1272,7 @@ setMethod("spc.getheader", signature = "Spectra", def = function (object,name){
 #' @rdname spc.setheader
 #' @export
 setGeneric (name="spc.setheader<-",
-
+            
             def=function(object,value){standardGeneric("spc.setheader<-")})
 
 #' @rdname spc.setheader
@@ -1312,7 +1313,7 @@ setReplaceMethod(f="spc.setheader", signature="Spectra",
 #' 
 #' @export
 setGeneric(name="spc.updateheader",
-            def=function(object,Name,value,...){standardGeneric("spc.updateheader")})
+           def=function(object,Name,value,...){standardGeneric("spc.updateheader")})
 
 #' @rdname spc.updateheader
 setMethod("spc.updateheader", signature="Spectra", definition=function(object,Name,value,...){
@@ -1575,7 +1576,7 @@ setMethod("[", signature(x = "Spectra"), function(x, i, j) {
   OUT_ANC = 0
   if(missing(i))
     i <-  1:nrow(x@Spectra)
-
+  
   if(missing(j))
     j =  1:ncol(x@Spectra)
   
@@ -1743,7 +1744,7 @@ setMethod("rep", signature(x = "Spectra"), function(x, times, ...) {
 #' using approx().
 #'
 #' @usage 
-#' spc.interp.spectral(source1,target_lbd,show.plot)
+#' spc.interp.spectral(source1,target_lbd,show.plot,...)
 #' 
 #' @param source1  A \code{Spectra} object 
 #' @param  target_lbd numeric vector giving desired wavelengths  
@@ -1868,8 +1869,8 @@ setMethod("spc.export.text", signature="Spectra", definition=function(input,file
 setMethod("spc.export.text", signature="SpcHeader", definition=function(input,filename,sep=";",append=F,...){
   nms = names(input)
   nms = paste0("Spectra|header",sep,nms)
-
-    out1 = lapply(1:length(input),function(x){
+  
+  out1 = lapply(1:length(input),function(x){
     myfield <- input[[x]]
     if(class(myfield) %in%  c("logical","numeric","character","factor")) {
       #If the separator character exists in the header, then eliminate it 
@@ -1884,10 +1885,10 @@ setMethod("spc.export.text", signature="SpcHeader", definition=function(input,fi
     } else {
       #If it is a complex type, then serialize it
       nms[[x]] <<- paste0(nms[[x]], "|Serialized")
-
+      
       myfield = rawToChar(serialize(myfield,connection = NULL,ascii = T))
       myfield = gsub('\n','_a_',myfield)
-      }
+    }
     myfield
   })
   out1 = cbind(nms,out1)
@@ -1965,7 +1966,7 @@ spc.import.text = function(filename,sep=";",...){
     if(length(idx)>0){
       Spec = Spec[,-idx]
     }
-  #browser()
+    #browser()
     Spec$TIME<-as.character(Spec$TIME)
     tz = strsplit(Spec$TIME[1]," ")[[1]][3]
     Spec$TIME<-as.POSIXct(strptime(Spec$TIME,"%Y-%m-%d %H:%M:%S",tz=tz))
@@ -2219,7 +2220,7 @@ setMethod("spc.select", signature = "Spectra",
           def = function (object){
             print("Click on graph to select Spectra, click Esc to quit ")
             
-             #Extract the existing selection Index
+            #Extract the existing selection Index
             if(length(object@SelectedIdx)>0)
               ExSel = object@SelectedIdx
             else
@@ -2706,7 +2707,7 @@ setMethod("spc.plot.plotly", signature="Spectra", function (sp, plot.max=10,show
   # require(plotly)
   if (plot.max > nrow(sp))
     plot.max = nrow(sp)
-
+  
   idx = floor(seq(1, nrow(sp), length.out = plot.max))
   if (legend_field %in% names(sp)) {
     legend_field = paste(legend_field, sp[[legend_field]])
@@ -2719,17 +2720,17 @@ setMethod("spc.plot.plotly", signature="Spectra", function (sp, plot.max=10,show
   p <- plotly::plot_ly()
   for(I in 1:length(idx)) {  
     p <- plotly::add_trace(p, x=sp@Wavelengths, y=sp@Spectra[idx[I],],type = "scatter", mode="lines",
-                   name=legend_field[idx[I]], hoverinfo=hoverinfo
-                   #,marker=list(color=line[['color']])
-                   )
+                           name=legend_field[idx[I]], hoverinfo=hoverinfo
+                           #,marker=list(color=line[['color']])
+    )
   }
   p = plotly::layout(p,
-             title = title,
-             hovermode = "closest",
-             xaxis = list(title = xlab), #rangeslider = list(type = "linear")),
-             yaxis = list(title = ylab),
-             showlegend=showlegend
-             )
+                     title = title,
+                     hovermode = "closest",
+                     xaxis = list(title = xlab), #rangeslider = list(type = "linear")),
+                     yaxis = list(title = ylab),
+                     showlegend=showlegend
+  )
   p
 })
 
@@ -2772,16 +2773,16 @@ setMethod("spc.plot.time.plotly", signature="Spectra", function (sp, column, plo
   if(length(column)>1)
     for(I in 2:length(column))
       p=plotly::add_trace(p, x = myTime , y = sp[[column[I]]], 
-                  type="scatter", mode = "lines + markers", 
-                  name=column[I], hoverinfo=hoverinfo) 
+                          type="scatter", mode = "lines + markers", 
+                          name=column[I], hoverinfo=hoverinfo) 
   p = plotly::layout(p,
-             title = title,
-             hovermode = "closest",
-             xaxis = list(title = "Time",
-                          rangeslider = list(type = "date")),
-             yaxis = list(title = ylab),
-             showlegend=showlegend
-             )
+                     title = title,
+                     hovermode = "closest",
+                     xaxis = list(title = "Time",
+                                  rangeslider = list(type = "date")),
+                     yaxis = list(title = ylab),
+                     showlegend=showlegend
+  )
   p
 })
 
@@ -2831,17 +2832,17 @@ setMethod("spc.plot.depth.plotly", signature="Spectra", function (sp, column, pl
   if(length(column)>1)
     for(I in 2:length(column))
       p=plotly::add_trace(p, x = sp[[column[I]]] , y =sp$DEPTH, type="scatter", mode = "lines + markers", 
-                  name=column[I], hoverinfo=hoverinfo) 
+                          name=column[I], hoverinfo=hoverinfo) 
   # layout(yaxis = list(autorange = "reversed"))
   p = plotly::layout(p,
-             title = title,
-             hovermode = "closest",
-             xaxis = list(title = xlab),
-             yaxis = list(title = "Depth [ m ]", 
-                          rangeslider = list(type = "linear"),
-                          autorange = "reversed"),
-             showlegend=showlegend
-             )
+                     title = title,
+                     hovermode = "closest",
+                     xaxis = list(title = xlab),
+                     yaxis = list(title = "Depth [ m ]", 
+                                  rangeslider = list(type = "linear"),
+                                  autorange = "reversed"),
+                     showlegend=showlegend
+  )
   p 
 })
 
@@ -2908,12 +2909,12 @@ setMethod("spc.plot.map.plotly", signature="Spectra", function (sp, hover_field,
       dtick = 5
     )
   )
-    
+  
   if(length(color==1))
     color = rep(color, nrow(sp))
   p <- plotly::plot_ly(lat = sp@sp@coords[,"LAT"], lon = sp@sp@coords[,"LON"], 
-               #text = hover, color = Globvalue,marker = m
-               type = 'scattergeo', color=color, opacity=opacity
+                       #text = hover, color = Globvalue,marker = m
+                       type = 'scattergeo', color=color, opacity=opacity
   ) 
   p <- plotly::layout(p, geo = g, showlegend=FALSE)
   p
@@ -2939,13 +2940,13 @@ setMethod("spc.plot.map.plotly", signature="Spectra", function (sp, hover_field,
 #' 
 #' @rdname spc.plot.map.leaflet
 #' @export
- setGeneric (name= "spc.plot.map.leaflet",
+setGeneric (name= "spc.plot.map.leaflet",
             def=function(sp,hover_field = "row",color = "#FF0000",opacity = 1,  weight=5){standardGeneric("spc.plot.map.leaflet")})
- 
+
 #' @rdname spc.plot.map.leaflet
 setMethod("spc.plot.map.leaflet", signature="Spectra", function (sp,hover_field = "row",color = "#FF0000",opacity = 1,  weight=5) {
-
-   hover_field = paste0(hover_field, 1:nrow(sp))
+  
+  hover_field = paste0(hover_field, 1:nrow(sp))
   
   m = leaflet() %>% 
     addCircles(lng = sp@sp@coords[,"LON"], lat=sp@sp@coords[,"LAT"], 
@@ -2956,8 +2957,8 @@ setMethod("spc.plot.map.leaflet", signature="Spectra", function (sp,hover_field 
   #addLegend(pal = qpal, values = , opacity = 1)
   m
   
-
- })
+  
+})
 
 ###########################################################
 # spc.plot.map.rbokeh
@@ -2996,10 +2997,10 @@ setMethod("spc.plot.map.rbokeh", signature="Spectra", function (sp,glyph,color, 
   df$opacity  = opacity
   df$row = 1:nrow(sp)
   for (I in 1:length(hover))
-  if (hover[I] %in% names(sp))
-    df[hover[I]] = sp[[hover[I]]]
- 
-   bbx = sp@sp@bbox
+    if (hover[I] %in% names(sp))
+      df[hover[I]] = sp[[hover[I]]]
+  
+  bbx = sp@sp@bbox
   bbx[,2] =  bbx[,2] + (0.04 * abs(bbx[,2]))
   if(bbx[2,2]>90)
     bbx[2,2]<-89
