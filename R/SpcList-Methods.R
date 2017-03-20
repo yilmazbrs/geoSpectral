@@ -398,7 +398,7 @@ setMethod("names", "SpcList", function(x){
 #'   names(BL)
 #'   BL$Cruise4
 #'
-#'  @export
+#' @export
 setMethod("$", signature = "SpcList", 
           function(x, name) {
             myn = names(x)

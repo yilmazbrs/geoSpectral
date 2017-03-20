@@ -55,7 +55,7 @@
 #' #Space and time columns are explicitly chosen from inDF columns
 #' myS<-Spectra(abs,Wavelengths=lbd, space=c("LONG","LAT"), time="TIME",Units=Units,ShortName="a_nap")
 #'
-#'  @export
+#' @export
 Spectra = function(inDF,Spectra,Wavelengths,Units,space,time,endTime,header,...){
   longcol="";latcol="";timecol=""
   
@@ -980,7 +980,8 @@ setMethod(f="spc.cname.construct", signature="Spectra",definition=function(objec
 #' names(dat)
 #' 
 #' #We would like to find elements of Es that match time-wise rows of Kd.
-#' nrow(dat$kd), nrow(dat$es)
+#' nrow(dat$kd)
+#' nrow(dat$es)
 #' 
 #' #Use spc.timeMatch() to get row indexes of Es that would match those of Kd time-wise
 #' t_idx=spc.timeMatch((dat$kd), (dat$es))
