@@ -56,46 +56,46 @@
 #' @rdname spc.plot.grid
 #' @export
 setGeneric (name= "spc.plot.grid",
-		def=function(x,FUN, nnrow, nncol,mar, oma, lab_cex,...){standardGeneric("spc.plot.grid")})
+            def=function(x,FUN, nnrow, nncol,mar, oma, lab_cex,...){standardGeneric("spc.plot.grid")})
 
 #' @rdname spc.plot.grid
 setMethod("spc.plot.grid", "SpcList", function (x,FUN, nnrow, nncol, mar=c(4,4.5,1,0.5), 
-				oma = c(0,0,0,0), lab_cex, ...){
-			nb_spc = length(which(sapply(x, inherits, "Spectra")))
-			mypar = par()
-			nrow = ceiling(nb_spc/nncol)
-			
-#			FUN <- match.fun(FUN)
-			if(missing(mar))
-				mar = c(4,4.5,1,0.5)
-			if(missing(oma))
-				oma = c(0,0,0,0)#c(1.5,2,1,1)
-			if(missing(lab_cex))
-				lab_cex = 1
-			
-			par(mfrow=c(nnrow,nncol), mar=mar, oma=oma)
-			
-			for (I in 1:length(x)) {
-				if(1){ #(nrow(x[[I]])>1){
-					if(x@by!="VariousVariables"){
-						#tit = paste(x@by, ":", as.character(spc.getheader(x[[I]],x@by)))
-						tit = paste(as.character(spc.getheader(x[[I]],x@by)))
-					}
-					else{
-						tit=""#paste(x[[I]]@ShortName)
-					}
-					eval_txt = paste(FUN, "(x[[I]],lab_cex=lab_cex,...)",sep="")
-					eval(parse(text=eval_txt))
-					title(main=tit,mgp=c(2,1,0))
-					
-					if (par()$mfg[1]==par()$mfg[3] & par()$mfg[2]==par()$mfg[4] & I<length(x)) {
-						dev.new()
-						par(mfrow=c(nnrow,nncol), mar=mar, oma=oma)
-					}				
-				}
-			}
-			par(mfrow=mypar$mfrow,mar=mypar$mar,oma=mypar$oma)
-		})
+                                                oma = c(0,0,0,0), lab_cex, ...){
+  nb_spc = length(which(sapply(x, inherits, "Spectra")))
+  mypar = par()
+  nrow = ceiling(nb_spc/nncol)
+  
+  #			FUN <- match.fun(FUN)
+  if(missing(mar))
+    mar = c(4,4.5,1,0.5)
+  if(missing(oma))
+    oma = c(0,0,0,0)#c(1.5,2,1,1)
+  if(missing(lab_cex))
+    lab_cex = 1
+  
+  par(mfrow=c(nnrow,nncol), mar=mar, oma=oma)
+  
+  for (I in 1:length(x)) {
+    if(1){ #(nrow(x[[I]])>1){
+      if(x@by!="VariousVariables"){
+        #tit = paste(x@by, ":", as.character(spc.getheader(x[[I]],x@by)))
+        tit = paste(as.character(spc.getheader(x[[I]],x@by)))
+      }
+      else{
+        tit=""#paste(x[[I]]@ShortName)
+      }
+      eval_txt = paste(FUN, "(x[[I]],lab_cex=lab_cex,...)",sep="")
+      eval(parse(text=eval_txt))
+      title(main=tit,mgp=c(2,1,0))
+      
+      if (par()$mfg[1]==par()$mfg[3] & par()$mfg[2]==par()$mfg[4] & I<length(x)) {
+        dev.new()
+        par(mfrow=c(nnrow,nncol), mar=mar, oma=oma)
+      }				
+    }
+  }
+  par(mfrow=mypar$mfrow,mar=mypar$mar,oma=mypar$oma)
+})
 
 #########################################################################
 # Method : spc.plot.overlay
@@ -129,70 +129,70 @@ setMethod("spc.plot.grid", "SpcList", function (x,FUN, nnrow, nncol, mar=c(4,4.5
 #' @rdname spc.plot.overlay
 #' @export
 setGeneric (name= "spc.plot.overlay",
-		def=function(object,lab_cex, leg_idx, type, lty, lwd, col, ...){standardGeneric("spc.plot.overlay")})
+            def=function(object,lab_cex, leg_idx, type, lty, lwd, col, ...){standardGeneric("spc.plot.overlay")})
 
 #' @rdname spc.plot.overlay
 setMethod("spc.plot.overlay", "SpcList", function (object, lab_cex=1,leg_idx=T, type="l", lty=1,lwd=1, col, ...){
-			if(missing(col))
-				col = 1:length(object)
-			if(length(col)==1)
-			  col = rep(col,length(object))
-			if(length(col)>1)
-			  stopifnot(length(col)==length(object))
-			if(length(leg_idx)>1)
-			  stopifnot(length(leg_idx)==length(object))
-			if(length(leg_idx)==1)
-				leg_idx = rep(leg_idx,length(object))
-			if(length(lty)==1)
-				lty = rep(lty,length(object))
-			if(length(lwd)==1)
-				lwd = rep(lwd,length(object))
-			if(length(type)==1)
-				type = rep(type,length(object))
-			
-			all_x = unlist(lapply(object,function(t) t@Wavelengths))
-			all_y = unlist(lapply(object,function(t) t@Spectra))
-			xlim = range(all_x)
-			ylim = range(all_y)
-			if(any(grepl("xlim",names(match.call())))){
-				xlim = list(...)$xlim #eval(match.call(expand.dots = T)$xlim)
-			}
-			if(any(grepl("ylim",names(match.call())))){
-				ylim = list(...)$ylim #eval(match.call(expand.dots = T)$ylim)
-			}
-			tit=""
-			#Check object names to see if they can be put in the legend
-			nms = sapply(names(object), function(x) x==names(object)[1])
-			nms = nms[-1]
-			
-			for (I in 1:length(object)) {
-				if(object@by!="VariousVariables"){
-					#tit[I] = paste(object@by, ":", as.character(spc.getheader(object[[I]],object@by)))
-					tit[I] = paste(as.character(spc.getheader(object[[I]],object@by)))
-				}
-				else{
-					if(all(!nms))
-						tit[I]=names(object)[I]					
-					else
-						tit[I]=as.character(I)#paste(object[[I]]@ShortName)
-				}
-				if(I==1)
-					eval_txt = paste("spc.plot", "(object[[I]],lab_cex=lab_cex,col=col[I],lty=lty[I],lwd=lwd[I],type=type[I],...)",sep="")
-				else
-					eval_txt = paste("spc.lines", "(object[[I]],col=col[I],lty=lty[I],lwd=lwd[I],type=type[I],...)",sep="")
-				if (0) #(!any(grepl("xlim",names(match.call()))))
-					eval_txt = gsub("object\\[\\[I\\]\\],","object\\[\\[I\\]\\],xlim=xlim,",eval_txt)
-				if (!any(grepl("ylim",names(match.call()))))
-					eval_txt = gsub("object\\[\\[I\\]\\],","object\\[\\[I\\]\\],ylim=ylim,",eval_txt)
-
-				eval(parse(text=eval_txt))				
-			}#end for
-			if(any(leg_idx)) {
-			  if(!all(diff(lty)==0))
-			    legend("bottomright",tit[leg_idx],col=col[leg_idx],cex=lab_cex,bty="n",lty=lty[leg_idx],lwd=lwd[leg_idx])	
-			  else
-			    legend("bottomright",tit[leg_idx],col=col[leg_idx],fill=col[leg_idx],cex=lab_cex,bty="n")	
-			}
+  if(missing(col))
+    col = 1:length(object)
+  if(length(col)==1)
+    col = rep(col,length(object))
+  if(length(col)>1)
+    stopifnot(length(col)==length(object))
+  if(length(leg_idx)>1)
+    stopifnot(length(leg_idx)==length(object))
+  if(length(leg_idx)==1)
+    leg_idx = rep(leg_idx,length(object))
+  if(length(lty)==1)
+    lty = rep(lty,length(object))
+  if(length(lwd)==1)
+    lwd = rep(lwd,length(object))
+  if(length(type)==1)
+    type = rep(type,length(object))
+  
+  all_x = unlist(lapply(object,function(t) t@Wavelengths))
+  all_y = unlist(lapply(object,function(t) t@Spectra))
+  xlim = range(all_x)
+  ylim = range(all_y)
+  if(any(grepl("xlim",names(match.call())))){
+    xlim = list(...)$xlim #eval(match.call(expand.dots = T)$xlim)
+  }
+  if(any(grepl("ylim",names(match.call())))){
+    ylim = list(...)$ylim #eval(match.call(expand.dots = T)$ylim)
+  }
+  tit=""
+  #Check object names to see if they can be put in the legend
+  nms = sapply(names(object), function(x) x==names(object)[1])
+  nms = nms[-1]
+  
+  for (I in 1:length(object)) {
+    if(object@by!="VariousVariables"){
+      #tit[I] = paste(object@by, ":", as.character(spc.getheader(object[[I]],object@by)))
+      tit[I] = paste(as.character(spc.getheader(object[[I]],object@by)))
+    }
+    else{
+      if(all(!nms))
+        tit[I]=names(object)[I]					
+      else
+        tit[I]=as.character(I)#paste(object[[I]]@ShortName)
+    }
+    if(I==1)
+      eval_txt = paste("spc.plot", "(object[[I]],lab_cex=lab_cex,col=col[I],lty=lty[I],lwd=lwd[I],type=type[I],...)",sep="")
+    else
+      eval_txt = paste("spc.lines", "(object[[I]],col=col[I],lty=lty[I],lwd=lwd[I],type=type[I],...)",sep="")
+    if (0) #(!any(grepl("xlim",names(match.call()))))
+      eval_txt = gsub("object\\[\\[I\\]\\],","object\\[\\[I\\]\\],xlim=xlim,",eval_txt)
+    if (!any(grepl("ylim",names(match.call()))))
+      eval_txt = gsub("object\\[\\[I\\]\\],","object\\[\\[I\\]\\],ylim=ylim,",eval_txt)
+    
+    eval(parse(text=eval_txt))				
+  }#end for
+  if(any(leg_idx)) {
+    if(!all(diff(lty)==0))
+      legend("bottomright",tit[leg_idx],col=col[leg_idx],cex=lab_cex,bty="n",lty=lty[leg_idx],lwd=lwd[leg_idx])	
+    else
+      legend("bottomright",tit[leg_idx],col=col[leg_idx],fill=col[leg_idx],cex=lab_cex,bty="n")	
+  }
 })
 
 #########################################################################
@@ -215,43 +215,43 @@ setMethod("spc.plot.overlay", "SpcList", function (object, lab_cex=1,leg_idx=T, 
 #' @rdname spc.plot.depth.overlay
 #' @export
 setGeneric (name= "spc.plot.depth.overlay",
-		def=function(object,X,lab_cex,...){standardGeneric("spc.plot.depth.overlay")})
+            def=function(object,X,lab_cex,...){standardGeneric("spc.plot.depth.overlay")})
 #' @rdname spc.plot.depth.overlay
 setMethod("spc.plot.depth.overlay", "SpcList", function (object, X, lab_cex, ...){
-			if(missing(lab_cex))
-				lab_cex = 1
-
-			all_y = unlist(lapply(object,function(t) t$DEPTH))
-			all_x = unlist(lapply(object,function(t) t@Spectra[,X]))
-			xlim = range(all_x)
-			ylim = rev(range(all_y))
-			tit=""
-			for (I in 1:length(object)) {
-				if(object@by!="VariousVariables"){
-					#tit[I] = paste(object@by, ":", as.character(spc.getheader(object[[I]],object@by)))
-					tit[I] = paste(as.character(spc.getheader(object[[I]],object@by)))
-				}
-				else{
-					tit[I]=as.character(I)#paste(object[[I]]@ShortName)
-				}
-				if(I==1)
-					eval_txt = paste("spc.plot.depth","(object[[I]],X,lab_cex=lab_cex,xlim=xlim,ylim=ylim,col=I,...)",sep="")
-				else
-					eval_txt =  paste("spc.plot.depth","(object[[I]],X,add=T,lab_cex=lab_cex,xlim=xlim,ylim=ylim,col=I,...)",sep="")
-
-				eval(parse(text=eval_txt))
-				#title(main=tit,mgp=c(2,1,0))
-			}#end for
-			legend("bottomright",tit,col=1:I,fill=1:I,cex=lab_cex,bty="n")
-			
-		})
+  if(missing(lab_cex))
+    lab_cex = 1
+  
+  all_y = unlist(lapply(object,function(t) t$DEPTH))
+  all_x = unlist(lapply(object,function(t) t@Spectra[,X]))
+  xlim = range(all_x)
+  ylim = rev(range(all_y))
+  tit=""
+  for (I in 1:length(object)) {
+    if(object@by!="VariousVariables"){
+      #tit[I] = paste(object@by, ":", as.character(spc.getheader(object[[I]],object@by)))
+      tit[I] = paste(as.character(spc.getheader(object[[I]],object@by)))
+    }
+    else{
+      tit[I]=as.character(I)#paste(object[[I]]@ShortName)
+    }
+    if(I==1)
+      eval_txt = paste("spc.plot.depth","(object[[I]],X,lab_cex=lab_cex,xlim=xlim,ylim=ylim,col=I,...)",sep="")
+    else
+      eval_txt =  paste("spc.plot.depth","(object[[I]],X,add=T,lab_cex=lab_cex,xlim=xlim,ylim=ylim,col=I,...)",sep="")
+    
+    eval(parse(text=eval_txt))
+    #title(main=tit,mgp=c(2,1,0))
+  }#end for
+  legend("bottomright",tit,col=1:I,fill=1:I,cex=lab_cex,bty="n")
+  
+})
 #########################################################################
 # Method : subset
 #########################################################################
 #' Subsetting for a \code{spcList} and Spectra classes
 #' @description
 #' Subsetting can be achieved using the implementation of the R function subset() for \code{Spectra} and SpcList classes
-#'It is possible to perform a row-wise selection
+#' It is possible to perform a row-wise selection
 #'
 #' 
 #' 
@@ -294,24 +294,24 @@ setMethod("spc.plot.depth.overlay", "SpcList", function (object, X, lab_cex, ...
 #' @export
 #The argument "select" is not implemented yet. Use "[]"
 setMethod("subset",  signature="SpcList",
-		definition=function(x, subset, select, drop = FALSE, ...) {                   
-			
-			if(class(subset)=="list") { 
-				if(length(subset)>1 & length(subset)!=length(x))
-					stop('The argument "subset" should be a list of length one or the same length of the SpcList object')          
-				
-				if(!missing(select)) 
-					temp = lapply(1:length(x), function(t) subset(x[[t]], subset=subset[[t]], select=select, drop=drop, ...))
-				else
-					temp = lapply(1:length(x), function(t) subset(x[[t]], subset=subset[[t]], drop=drop, ...))
-				
-			} else {
-				stop('The input argument "subset" should be a list element containing indexes')
-			}
-			
-			x@.Data = temp
-			return(x)
-		})
+          definition=function(x, subset, select, drop = FALSE, ...) {                   
+            
+            if(class(subset)=="list") { 
+              if(length(subset)>1 & length(subset)!=length(x))
+                stop('The argument "subset" should be a list of length one or the same length of the SpcList object')          
+              
+              if(!missing(select)) 
+                temp = lapply(1:length(x), function(t) subset(x[[t]], subset=subset[[t]], select=select, drop=drop, ...))
+              else
+                temp = lapply(1:length(x), function(t) subset(x[[t]], subset=subset[[t]], drop=drop, ...))
+              
+            } else {
+              stop('The input argument "subset" should be a list element containing indexes')
+            }
+            
+            x@.Data = temp
+            return(x)
+          })
 
 #########################################################################
 # Method : Arith
@@ -351,22 +351,22 @@ setMethod("subset",  signature="SpcList",
 #' 
 #' @export
 setMethod("names", "SpcList", function(x){
-			sapply(x, function(mobject) {
-			  if (!is.null(x@by) & !is.na(x@by) & x@by!="VariousVariables") {
-			    if(x@by %in% names(mobject))
-			      mobject[[x@by]][1]
-			    else
-			      NULL
-			  }
-			  else {
-			    if(class(mobject)=="Spectra") {
-			      mobject@ShortName[1]
-			    }
-			    else{
-			      class(mobject)
-			    }
-			  }
-			})
+  sapply(x, function(mobject) {
+    if (!is.null(x@by) & !is.na(x@by) & x@by!="VariousVariables") {
+      if(x@by %in% names(mobject))
+        mobject[[x@by]][1]
+      else
+        NULL
+    }
+    else {
+      if(class(mobject)=="Spectra") {
+        mobject@ShortName[1]
+      }
+      else{
+        class(mobject)
+      }
+    }
+  })
 })
 
 #########################################################################
@@ -400,12 +400,12 @@ setMethod("names", "SpcList", function(x){
 #'
 #'  @export
 setMethod("$", signature = "SpcList", 
-		function(x, name) {
-			myn = names(x)
-			if(any(grepl(name,myn))){
-				x[[match(name,myn)[1]]]}
-			else stop("Could not match any object name")
-		})
+          function(x, name) {
+            myn = names(x)
+            if(any(grepl(name,myn))){
+              x[[match(name,myn)[1]]]}
+            else stop("Could not match any object name")
+          })
 
 #########################################################################
 # Method : show
@@ -424,22 +424,22 @@ setMethod("$", signature = "SpcList",
 #' BL = spc.makeSpcList(x,"CAST")
 #' show(BL)
 #'
-#'  @export
+#' @export
 setMethod("show", "SpcList", function(object){
-			if(length(object)>0)
-				sapply(1:length(object), function(x) {
-							if(object@by!="VariousVariables") {
-								byName = paste(object@by, names(object)[x], ":")								
-							}
-							else { 
-								byName = paste("Element", x, ":")								
-							}
-							
-							cat(byName)
-							show(object[[x]])
-						})
-			else cat("Empty SpcList\n")
-		})
+  if(length(object)>0)
+    sapply(1:length(object), function(x) {
+      if(object@by!="VariousVariables") {
+        byName = paste(object@by, names(object)[x], ":")								
+      }
+      else { 
+        byName = paste("Element", x, ":")								
+      }
+      
+      cat(byName)
+      show(object[[x]])
+    })
+  else cat("Empty SpcList\n")
+})
 
 #########################################################################
 # Constructor function : SpcList()
@@ -459,7 +459,7 @@ setMethod("show", "SpcList", function(object){
 #' 
 #' @export
 SpcList = function (x){
-	new("SpcList", x)
+  new("SpcList", x)
 }
 #########################################################################
 # Method : spc.invalid.detect
@@ -480,9 +480,9 @@ SpcList = function (x){
 #' 
 #' @export
 setMethod("spc.invalid.detect", signature = "list", def=function(source1){
-			out = lapply(source1, function(x) {SetInvalidIdx(x)<-spc.invalid.detect(x)})
-			return(out)
-		})
+  out = lapply(source1, function(x) {SetInvalidIdx(x)<-spc.invalid.detect(x)})
+  return(out)
+})
 
 #########################################################################
 # Method : spc.getheader
@@ -507,8 +507,8 @@ setMethod("spc.invalid.detect", signature = "list", def=function(source1){
 #' @export
 #' 
 setMethod("spc.getheader", signature = "list", def = function (object,name){
-			sapply(object, spc.getheader,name)
-		})
+  sapply(object, spc.getheader,name)
+})
 
 #########################################################################
 # Method : spc.setheader<-
@@ -533,19 +533,19 @@ setMethod("spc.getheader", signature = "list", def = function (object,name){
 #' 
 #' @export
 setReplaceMethod(f="spc.setheader", signature="list",
-		definition=function(object,value){
-			if(inherits(value,"Spectra"))
-				stop("It is forbidden to set a SpcHeader an object that inherits from the Spectra class")
-			if(length(value)==1)
-				value = rep(value,length(object))
-			stopifnot(length(value)==length(object))			
-			
-			a=sapply(1:length(object), function(x) {
-						object[[x]] = spc.setheader(object[[x]],value[x])
-					})
-			validObject(object)
-			return(object)
-		})
+                 definition=function(object,value){
+                   if(inherits(value,"Spectra"))
+                     stop("It is forbidden to set a SpcHeader an object that inherits from the Spectra class")
+                   if(length(value)==1)
+                     value = rep(value,length(object))
+                   stopifnot(length(value)==length(object))			
+                   
+                   a=sapply(1:length(object), function(x) {
+                     object[[x]] = spc.setheader(object[[x]],value[x])
+                   })
+                   validObject(object)
+                   return(object)
+                 })
 
 #########################################################################
 # Method : spc.updateheader
@@ -603,11 +603,11 @@ setMethod(f="spc.updateheader", signature="list", definition=function(object,Nam
 #' 
 #' @export
 setMethod("spc.data2header", signature = "list", 
-		def=function(object,dataname,headerfield,compress=TRUE,...){
-			temp = lapply(object, spc.data2header, dataname,headerfield,compress,...)
-			object@.Data=temp
-			return(object)
-		})
+          def=function(object,dataname,headerfield,compress=TRUE,...){
+            temp = lapply(object, spc.data2header, dataname,headerfield,compress,...)
+            object@.Data=temp
+            return(object)
+          })
 
 #########################################################################
 # Method : sort
@@ -633,10 +633,10 @@ setMethod("spc.data2header", signature = "list",
 #' 
 #' @export
 setMethod("sort", signature="SpcList", definition= function (x, decreasing = FALSE, na.last=NA, which.col, ...){
-			newdata = lapply(x, sort, which.col=which.col, decreasing=decreasing, na.last=na.last, ...)
-			x@.Data = newdata
-			return(x)
-		})
+  newdata = lapply(x, sort, which.col=which.col, decreasing=decreasing, na.last=na.last, ...)
+  x@.Data = newdata
+  return(x)
+})
 
 #########################################################################
 # Method : spc.lapply
@@ -663,22 +663,22 @@ setMethod("sort", signature="SpcList", definition= function (x, decreasing = FAL
 #' @rdname spc.lapply
 #' @export
 setGeneric (name= "spc.lapply",
-		def=function(X, FUN,...){standardGeneric("spc.lapply")})
+            def=function(X, FUN,...){standardGeneric("spc.lapply")})
 
 #' @rdname spc.lapply
 setMethod("spc.lapply", signature="SpcList", definition= function (X, FUN, ...) {
-			by = X@by
-			by_names <- names(X)
-			X = lapply(as(X,"list"),FUN,...)
-			if (all(sapply(X, class)=="Spectra")) {
-			  X = as(X, "SpcList")
-			  X@by = by
-			} else {
-			  names(X) <- by_names
-			}
-			validObject(X)
-			return(X)
-		})
+  by = X@by
+  by_names <- names(X)
+  X = lapply(as(X,"list"),FUN,...)
+  if (all(sapply(X, class)=="Spectra")) {
+    X = as(X, "SpcList")
+    X@by = by
+  } else {
+    names(X) <- by_names
+  }
+  validObject(X)
+  return(X)
+})
 
 h2d = function(object,headerfield,dataname,compress=TRUE,...) {
   if(missing(dataname))
@@ -702,14 +702,14 @@ setMethod("spc.header2data", signature="list", definition=h2d)
 
 #' @rdname spc.header2data
 setMethod("spc.header2data", signature="SpcList", 
-		definition=function(object,headerfield,dataname,compress=TRUE,...){
-			by = object@by	
-			X <- h2d(object,headerfield=headerfield,dataname=dataname,compress=compress,...)
-			X <- as(X, "SpcList")
-			X@by = by
-			validObject(X)
-			return(X)
-		})
+          definition=function(object,headerfield,dataname,compress=TRUE,...){
+            by = object@by	
+            X <- h2d(object,headerfield=headerfield,dataname=dataname,compress=compress,...)
+            X <- as(X, "SpcList")
+            X@by = by
+            validObject(X)
+            return(X)
+          })
 
 #########################################################################
 # Method : subset

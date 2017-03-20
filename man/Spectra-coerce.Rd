@@ -37,4 +37,5 @@ attr(df2, "Wavelengths") <- c(500, 600)
 attr(df2, "ShortName") <- "abs"
 as(df2, "Spectra")
 
+
 }

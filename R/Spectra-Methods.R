@@ -1,6 +1,6 @@
 #' Constructor function for the class \code{Spectra}.
 #'
-#'@description
+#' @description
 #' \code{Spectra} Creates an instance of class \code{Spectra}.
 #'
 #' @param inDF a long-format \code{data.frame} containing LAT,LON and TIME columns as well as Ancillary data.
@@ -179,6 +179,7 @@ Spectra = function(inDF,Spectra,Wavelengths,Units,space,time,endTime,header,...)
 #' attr(df2, "Wavelengths") <- c(500, 600)
 #' attr(df2, "ShortName") <- "abs"
 #' as(df2, "Spectra")
+#' 
 #' 
 setAs(from="Spectra", to="data.frame", def=function(from){
   if(ncol(from@data)>0)
@@ -2293,7 +2294,6 @@ spc.makeSpcList = function(myobj, name){
 #' @description
 #' Generating plot of the contents of a \code{Spectra} object with respect to time
 #'
-#' @usage sspc.plot.time(object,Y,maxSp,xdata,lab_cex,lwd, ...)
 #' @param object	 a \code{Spectra} data 
 #' @param Y a \code{Spectra} rows 
 #' @param maxSp maximum number of \code{Spectra} to plot
@@ -2390,9 +2390,6 @@ setMethod("spc.plot.time", signature="Spectra", function (object,Y,maxSp=50,xdat
 #' @description
 #' Generating plot of the contents of a \code{Spectra} object with respect to depth
 #'
-#' 
-#' @usage 
-#' spc.plot.depth(object,X,maxSp,lab_cex,title, add, xlab, ylab, ylim,xlim,lwd,...)
 #' 
 #' @param object a \code{Spectra} data 
 #' @param x a \code{Spectra} rows 
@@ -2684,13 +2681,13 @@ spc.Read_NOMAD_v2 = function(skip.all.na.rows=TRUE) {
 #' @param hoverinfo  a chracter, info about  \code{Spectra} object to be used  in hover box
 #' @param title a chracter string, title for plot
 #' @examples 
-#'sp = spc.example_spectra()
-#'spc.plot.plotly(sp)
-#'spc.plot.plotly(sp,legend_field = "Spectra")
-#'spc.plot.plotly(sp,legend_field = "CAST")
-#'spc.plot.plotly(sp,legend_field = "NISKIN")
-#'spc.plot.plotly(sp,legend_field = "STATION")
-#'spc.plot.plotly(sp,legend_field = "anap_440")
+#' sp = spc.example_spectra()
+#' spc.plot.plotly(sp)
+#' spc.plot.plotly(sp,legend_field = "Spectra")
+#' spc.plot.plotly(sp,legend_field = "CAST")
+#' spc.plot.plotly(sp,legend_field = "NISKIN")
+#' spc.plot.plotly(sp,legend_field = "STATION")
+#' spc.plot.plotly(sp,legend_field = "anap_440")
 #' 
 #' @rdname spc.plot.plotly
 #' @export
